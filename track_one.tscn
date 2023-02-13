@@ -1,15 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/track_one.png" type="Texture" id=2]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends Node2D
-
-"
-
-[node name="Node2D" type="Node2D"]
-script = SubResource( 1 )
+[node name="TrackOne" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
@@ -17,3 +11,14 @@ script = SubResource( 1 )
 position = Vector2( 500, 300 )
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 2 )
+
+[node name="Walls" type="StaticBody2D" parent="."]
+position = Vector2( 143, 147 )
+
+[node name="InsideWall" type="CollisionPolygon2D" parent="Walls"]
+polygon = PoolVector2Array( 0, -1, 91, -1, 144, 52, 356, 52, 409, 0, 536, 0, 696, 160, 696, 263, 648, 311, 47, 311, 1, 265 )
+
+[node name="OutsideWall" type="CollisionPolygon2D" parent="Walls"]
+position = Vector2( -71, -118 )
+build_mode = 1
+polygon = PoolVector2Array( 15, 2, -41, 59, -42, 430, 71, 542, 768, 542, 880, 429, 880, 230, 652, 2, 434, 2, 378, 58, 258, 58, 201, 2 )
