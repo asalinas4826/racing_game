@@ -14,7 +14,7 @@ func _process(delta):
 	elif p2.bouncing:
 		bounce_player(p2)
 		
-func move_player(delta, player, slot):
+func move_player(delta, player : KinematicBody2D, slot : String):
 	var velocity = Vector2.ZERO
 	
 	if Input.is_action_pressed("p" + slot + "_up"):
@@ -38,15 +38,15 @@ func move_player(delta, player, slot):
 	if velocity.length() != 0:
 		player.rotation = velocity.angle() + PI / 2
 			
-func bounce_player(player):
+func bounce_player(player : KinematicBody2D):
 	var velocity = player.bounceVelocity
 	var collision = player.move_and_collide(velocity)
 	if collision != null:
 		toBounceState(collision, player, velocity)
 
-func toBounceState(collision, player, player_vel): # collider is the thing you're hitting
+func toBounceState(collision : KinematicCollision2D, player : KinematicBody2D, player_vel : Vector2): 
 	var collider_v = collision.get_collider_velocity().limit_length(player_vel.length())
-	var collider = collision.get_collider()
+	var collider = collision.get_collider() # collider is the thing you're hitting
 #	print("player name: " + player.name + ", collider name: " + collider.name)
 #	print("player v x: " + str(player_vel.x) + ", player v y: "
 #		  + str(player_vel.y))

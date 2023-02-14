@@ -20,7 +20,7 @@ margin_bottom = 333.0
 text = "Ready?"
 
 [node name="StartTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.875
 one_shot = true
 
 [connection signal="pressed" from="StartButton" to="." method="prepare_race"]
