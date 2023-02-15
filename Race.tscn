@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://track_one.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Race.gd" type="Script" id=2]
 [ext_resource path="res://Sound/Racing.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/start_button.png" type="Texture" id=4]
+[ext_resource path="res://assets/track_title.png" type="Texture" id=5]
+
+[sub_resource type="InputEventAction" id=1]
+action = "ui_accept"
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
 
 [node name="Race" type="Node2D"]
 script = ExtResource( 2 )
@@ -12,16 +20,25 @@ script = ExtResource( 2 )
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
 
-[node name="StartButton" type="Button" parent="."]
-margin_left = 461.0
-margin_top = 313.0
-margin_right = 473.0
-margin_bottom = 333.0
-text = "Ready?"
-
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 1.875
 one_shot = true
 
-[connection signal="pressed" from="StartButton" to="." method="prepare_race"]
+[node name="HUD" type="Node2D" parent="."]
+
+[node name="StartButton" type="Button" parent="HUD"]
+margin_left = 401.0
+margin_top = 385.0
+margin_right = 717.0
+margin_bottom = 487.0
+rect_scale = Vector2( 0.5, 0.5 )
+shortcut = SubResource( 2 )
+icon = ExtResource( 4 )
+
+[node name="TrackTitle" type="Sprite" parent="HUD"]
+position = Vector2( 480, 300 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+
 [connection signal="timeout" from="StartTimer" to="." method="start_race"]
+[connection signal="pressed" from="HUD/StartButton" to="." method="prepare_race"]

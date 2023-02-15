@@ -5,17 +5,34 @@ func _ready():
 	get_node("TrackOne/Player/Car2/Sprite").set_texture(player2Texture)
 
 	set_pause_scene(get_node("TrackOne"), 1)
+	set_process(false)
+	
+func _process(delta):
+	fade_button_and_title(delta)
+	
+func fade_button_and_title(delta):
+	var button = get_node("HUD/StartButton")
+	if button.modulate.a8 > 0:	
+		button.modulate.a8 -= 16
+	
+	var title = get_node("HUD/TrackTitle")
+	if title.modulate.a8 > 0:	
+		title.modulate.a8 -= 16
+	
+	
+	
 
 func prepare_race():
 	get_node("Music").play()
-	get_node("StartButton").hide()
 	get_node("StartTimer").start()
+	set_process(true)
 
 
 
 func start_race():
 	set_pause_scene(get_node("TrackOne"), 0)
-
+	
+	
 #(Un)pauses a single node
 func set_pause_node(node : Node, pause : bool) -> void:
 	node.set_process(!pause)
