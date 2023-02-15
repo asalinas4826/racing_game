@@ -7,10 +7,10 @@ func _ready():
 	set_pause_scene(get_node("TrackOne"), 1)
 	set_process(false)
 	
-func _process(delta):
-	fade_button_and_title(delta)
+func _process(_delta):
+	fade_button_and_title()
 	
-func fade_button_and_title(delta):
+func fade_button_and_title():
 	var button = get_node("HUD/StartButton")
 	if button.modulate.a8 > 0:	
 		button.modulate.a8 -= 16
