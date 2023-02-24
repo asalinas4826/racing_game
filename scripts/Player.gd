@@ -3,27 +3,29 @@ extends Node
 onready var p1 = get_node("Car")
 onready var p2 = get_node("Car2")
 # screen_size = 600x1000
+func _ready():
+	p2.playerTwo = true
 	
 func _process(delta):
 	if !p1.bouncing:
-		move_player(delta, p1, "1")
+		move_player(delta, p1, p1.playerTwo)
 	elif p1.bouncing:
 		bounce_player(p1)
 	if !p2.bouncing:
-		move_player(delta, p2, "2")
+		move_player(delta, p2, p2.playerTwo)
 	elif p2.bouncing:
 		bounce_player(p2)
 		
-func move_player(delta, player : KinematicBody2D, slot : String):
+func move_player(delta, player : KinematicBody2D, slot : bool) -> void:
 	var velocity = Vector2.ZERO
 	
-	if Input.is_action_pressed("p" + slot + "_up"):
+	if Input.is_action_pressed("p" + str(int(slot) + 1) + "_up"):
 		velocity.y -= 1
-	if Input.is_action_pressed("p" + slot + "_down"):
+	if Input.is_action_pressed("p" + str(int(slot) + 1) + "_down"):
 		velocity.y += 1
-	if Input.is_action_pressed("p" + slot + "_right"):
+	if Input.is_action_pressed("p" + str(int(slot) + 1) + "_right"):
 		velocity.x += 1
-	if Input.is_action_pressed("p" + slot + "_left"):
+	if Input.is_action_pressed("p" + str(int(slot) + 1) + "_left"):
 		velocity.x -= 1
 	
 	if velocity.length() > 1:
@@ -38,13 +40,13 @@ func move_player(delta, player : KinematicBody2D, slot : String):
 	if velocity.length() != 0:
 		player.rotation = velocity.angle() + PI / 2
 			
-func bounce_player(player : KinematicBody2D):
+func bounce_player(player : KinematicBody2D) -> void:
 	var velocity = player.bounceVelocity
 	var collision = player.move_and_collide(velocity)
 	if collision != null:
 		toBounceState(collision, player, velocity)
 
-func toBounceState(collision : KinematicCollision2D, player : KinematicBody2D, player_vel : Vector2): 
+func toBounceState(collision : KinematicCollision2D, player : KinematicBody2D, player_vel : Vector2) -> void: 
 	var collider_v = collision.get_collider_velocity().limit_length(player_vel.length())
 	var collider = collision.get_collider() # collider is the thing you're hitting
 #	print("player name: " + player.name + ", collider name: " + collider.name)

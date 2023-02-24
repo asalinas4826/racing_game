@@ -6,6 +6,7 @@ var bounceVelocity = Vector2.ZERO
 
 var backwardsLap = true
 var lapCount = 1
+var playerTwo = false
 
 func _process(_delta):
 	if bouncing && get_node("BounceTimer").is_stopped():

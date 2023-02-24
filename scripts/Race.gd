@@ -12,7 +12,7 @@ func _process(_delta):
 	fade_button_and_title()
 	
 	
-func fade_button_and_title():
+func fade_button_and_title() -> void:
 	var button = get_node("HUD/StartButton")
 	if button.modulate.a8 > 0:
 		button.modulate.a8 -= 16
@@ -32,16 +32,21 @@ func prepare_race():
 func start_race():
 	set_pause_scene(get_node("TrackOne"), 0)
 	
+
+func end_race(winner : KinematicBody2D):
+	get_node("FinishLine").set_deferred("monitoring", false)
+	var winTexture
+	if not winner.playerTwo:
+		winTexture = load("res://assets/Player 1 Wins.png")
+	else:
+		winTexture = load("res://assets/Player 2 Wins.png")
+	get_node("HUD/WinMessage").set_texture(winTexture )
 	
-func _on_exit_finish(body):
-	pass
-	
-	
-func _on_enter_finish(body):
+func _on_enter_finish(body : KinematicBody2D) -> void:
 	if not body.backwardsLap and body.position.x < get_node("FinishLine").position.x:
 		body.lapCount += 1
 		if body.lapCount > 3:
-			pass # end game
+			end_race(body)
 	
 	if body.position.x > get_node("FinishLine").position.x:
 		body.backwardsLap = true
@@ -69,6 +74,3 @@ func set_pause_scene(rootNode : Node, pause : bool, ignoredChilds : PoolStringAr
 	for node in rootNode.get_children():
 		if not (String(node.get_path()) in ignoredChilds):
 			set_pause_scene(node, pause, ignoredChilds)
-
-
-
