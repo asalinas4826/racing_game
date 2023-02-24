@@ -84,8 +84,6 @@ func toBounceState(collision : KinematicCollision2D, player : KinematicBody2D, p
 #		", bounce player y: " + str(player_vel.y))
 #	print("bounce collider x: " + str(new_collider_v.x) + 
 #		", bounce collider y: " + str(new_collider_v.y) + "\n")
-	# NOTE: will have to change this so that if you collide w/ non-player objects those objects don't 
-	# bounce
 	
 	# NOTE: sometimes red car simply pushes blue car when any component vector opposes the other
 	# bc red car collides w/ blue, blue collides w/ red, then red collides w/ blue again. 3 collisions

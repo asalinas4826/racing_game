@@ -22,3 +22,6 @@ polygon = PoolVector2Array( 0, -1, 91, -1, 144, 52, 356, 52, 409, 0, 536, 0, 696
 position = Vector2( -71, -118 )
 build_mode = 1
 polygon = PoolVector2Array( 15, 2, -41, 59, -42, 430, 71, 542, 768, 542, 880, 429, 880, 230, 652, 2, 434, 2, 378, 58, 258, 58, 201, 2 )
+
+[node name="LapCenter" type="Position2D" parent="."]
+position = Vector2( 500, 300 )
