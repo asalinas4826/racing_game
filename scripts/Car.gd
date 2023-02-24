@@ -4,7 +4,8 @@ export var speed = 600
 var bouncing = false
 var bounceVelocity = Vector2.ZERO
 
-var lapAngle = 2 * PI
+var backwardsLap = true
+var lapCount = 1
 
 func _process(_delta):
 	if bouncing && get_node("BounceTimer").is_stopped():
