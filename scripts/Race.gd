@@ -7,11 +7,13 @@ func _ready():
 	set_pause_scene(get_node("TrackOne"), 1)
 	set_process(false)
 	
-	
+	get_node("HUD/EndButton").hide()
+
+
 func _process(_delta):
 	fade_button_and_title()
-	
-	
+
+
 func fade_button_and_title() -> void:
 	var button = get_node("HUD/StartButton")
 	if button.modulate.a8 > 0:
@@ -23,7 +25,7 @@ func fade_button_and_title() -> void:
 
 
 func prepare_race():
-	get_node("Music").play()
+	get_node("RaceMusic").play()
 	get_node("StartTimer").start()
 	get_node("HUD/StartButton").disabled = true
 	set_process(true)
@@ -31,7 +33,28 @@ func prepare_race():
 
 func start_race():
 	set_pause_scene(get_node("TrackOne"), 0)
-	
+
+
+func _on_enter_finish(body : KinematicBody2D) -> void:
+	if not body.backwardsLap and body.position.x < get_node("FinishLine").position.x:
+		body.lapCount += 1
+		
+		comeback()
+		
+		if body.lapCount > 3: # 18 allows music to play through at least once, use 2 or 3 for testing
+			end_race(body)
+
+#	print(body.lapCount)
+#	print(body.position.x)
+#	print(body.backwardsLap)
+
+
+func _on_exit_finish(body):
+	if body.position.x < get_node("FinishLine").position.x:
+		body.backwardsLap = true
+	else:
+		body.backwardsLap = false
+
 
 func end_race(winner : KinematicBody2D):
 	get_node("FinishLine").set_deferred("monitoring", false)
@@ -41,23 +64,38 @@ func end_race(winner : KinematicBody2D):
 	else:
 		winTexture = load("res://assets/Player 2 Wins.png")
 	get_node("HUD/WinMessage").set_texture(winTexture )
+	get_node("HUD/EndButton").show()
+	get_node("HUD/EndButton").disabled = false
+	get_node("RaceMusic").stop()
+	get_node("WinMusic").play()
 	
-func _on_enter_finish(body : KinematicBody2D) -> void:
-	if not body.backwardsLap and body.position.x < get_node("FinishLine").position.x:
-		body.lapCount += 1
-		if body.lapCount > 3:
-			end_race(body)
+func _on_EndButton_pressed():
+	get_node("WinMusic").stop()
+	get_tree().change_scene("res://RaceMenu.tscn")
+
+
+func comeback() -> void:
+	var car1 = get_node("TrackOne/Player/Car")
+	var car2 = get_node("TrackOne/Player/Car2")
+	print("\nPlayer 1: " + str(car1.lapCount))
+	print("Player 2: " + str(car2.lapCount))
 	
-	if body.position.x > get_node("FinishLine").position.x:
-		body.backwardsLap = true
-	else:
-		body.backwardsLap = false
-		
-#	print(body.lapCount)
-#	print(body.position.x)
-#	print(body.backwardsLap)
-	
-	
+	if car1.lapCount > car2.lapCount and car2.speed <= 600:
+		car2.speed *= 1.5
+		print("p1's speed is " + str(car1.speed))
+		print("increased p2's speed to " + str(car2.speed))
+	elif car2.lapCount > car1.lapCount and car1.speed <= 600:
+		car1.speed *= 1.5
+		print("increased p1's speed to " + str(car1.speed))
+		print("p2's speed is " + str(car1.speed))
+	elif car1.lapCount == car2.lapCount:
+		car1.speed = 400
+		car2.speed = 400
+		print("reset speed")
+		print("p1's speed is " + str(car1.speed))
+		print("p2's speed is " + str(car2.speed))
+
+
 #(Un)pauses a single node
 func set_pause_node(node : Node, pause : bool) -> void:
 	node.set_process(!pause)
@@ -74,3 +112,4 @@ func set_pause_scene(rootNode : Node, pause : bool, ignoredChilds : PoolStringAr
 	for node in rootNode.get_children():
 		if not (String(node.get_path()) in ignoredChilds):
 			set_pause_scene(node, pause, ignoredChilds)
+
