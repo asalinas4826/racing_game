@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/track_title.png-9d730aa22d7eb6e83941c778f4b6f1b2.stex"
+path="res://.import/TrackTitlePressed.png-72b11ba9b4d26d5899fe70e83be63cef.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/track_title.png"
-dest_files=[ "res://.import/track_title.png-9d730aa22d7eb6e83941c778f4b6f1b2.stex" ]
+source_file="res://assets/TitleButtons/TrackTitlePressed.png"
+dest_files=[ "res://.import/TrackTitlePressed.png-72b11ba9b4d26d5899fe70e83be63cef.stex" ]
 
 [params]
 

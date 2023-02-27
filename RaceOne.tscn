@@ -5,7 +5,7 @@
 [ext_resource path="res://Sound/Racing.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/startButton/start_button.png" type="Texture" id=4]
 [ext_resource path="res://assets/startButton/start_button_pressed.png" type="Texture" id=5]
-[ext_resource path="res://assets/track_title.png" type="Texture" id=6]
+[ext_resource path="res://assets/TitleButtons/track_title.png" type="Texture" id=6]
 [ext_resource path="res://assets/startButton/start_button_hover.png" type="Texture" id=7]
 [ext_resource path="res://assets/endButton/Play Again.png" type="Texture" id=8]
 [ext_resource path="res://assets/endButton/Play Again Hover.png" type="Texture" id=9]
@@ -47,6 +47,7 @@ margin_top = 386.0
 margin_right = 716.0
 margin_bottom = 488.0
 rect_scale = Vector2( 0.5, 0.5 )
+shortcut_in_tooltip = false
 shortcut = SubResource( 2 )
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 5 )
@@ -54,7 +55,7 @@ texture_hover = ExtResource( 7 )
 
 [node name="TrackTitle" type="Sprite" parent="HUD"]
 position = Vector2( 480, 300 )
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 6 )
 
 [node name="WinMessage" type="Sprite" parent="HUD"]

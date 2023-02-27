@@ -77,23 +77,23 @@ func _on_EndButton_pressed():
 func comeback() -> void:
 	var car1 = get_node("TrackOne/Player/Car")
 	var car2 = get_node("TrackOne/Player/Car2")
-	print("\nPlayer 1: " + str(car1.lapCount))
-	print("Player 2: " + str(car2.lapCount))
+#	print("\nPlayer 1: " + str(car1.lapCount))
+#	print("Player 2: " + str(car2.lapCount))
 	
 	if car1.lapCount > car2.lapCount and car2.speed <= 600:
 		car2.speed *= 1.5
-		print("p1's speed is " + str(car1.speed))
-		print("increased p2's speed to " + str(car2.speed))
+#		print("p1's speed is " + str(car1.speed))
+#		print("increased p2's speed to " + str(car2.speed))
 	elif car2.lapCount > car1.lapCount and car1.speed <= 600:
 		car1.speed *= 1.5
-		print("increased p1's speed to " + str(car1.speed))
-		print("p2's speed is " + str(car1.speed))
+#		print("increased p1's speed to " + str(car1.speed))
+#		print("p2's speed is " + str(car1.speed))
 	elif car1.lapCount == car2.lapCount:
 		car1.speed = 400
 		car2.speed = 400
-		print("reset speed")
-		print("p1's speed is " + str(car1.speed))
-		print("p2's speed is " + str(car2.speed))
+#		print("reset speed")
+#		print("p1's speed is " + str(car1.speed))
+#		print("p2's speed is " + str(car2.speed))
 
 
 #(Un)pauses a single node
