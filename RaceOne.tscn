@@ -34,6 +34,7 @@ script = ExtResource( 2 )
 
 [node name="RaceMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
+volume_db = 3.0
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 1.875
@@ -82,6 +83,7 @@ shape = SubResource( 3 )
 
 [node name="WinMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 11 )
+volume_db = 3.0
 
 [connection signal="timeout" from="StartTimer" to="." method="start_race"]
 [connection signal="pressed" from="HUD/StartButton" to="." method="prepare_race"]

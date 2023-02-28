@@ -41,7 +41,7 @@ func _on_enter_finish(body : KinematicBody2D) -> void:
 		
 		comeback()
 		
-		if body.lapCount > 3: # 18 allows music to play through at least once, use 2 or 3 for testing
+		if body.lapCount > 2: # 18 allows music to play through at least once, use 2 or 3 for testing
 			end_race(body)
 
 #	print(body.lapCount)
