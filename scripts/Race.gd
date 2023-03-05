@@ -1,5 +1,7 @@
 extends Node2D
 
+var raceLength = 18 # how many laps for a race
+
 func _ready():
 	var player2Texture = preload("res://assets/blue_car.png")
 	get_node("TrackOne/Player/Car2/Sprite").set_texture(player2Texture)
@@ -8,6 +10,9 @@ func _ready():
 	set_process(false)
 	
 	get_node("HUD/EndButton").hide()
+	
+	get_node("HUD/P1Laps").hide()
+	get_node("HUD/P2Laps").hide()
 
 
 func _process(_delta):
@@ -33,20 +38,39 @@ func prepare_race():
 
 func start_race():
 	set_pause_scene(get_node("TrackOne"), 0)
+	
+	var textLabelOne = get_node("HUD/P1Laps")
+	var textLabelTwo = get_node("HUD/P2Laps")
+	textLabelOne.text = "P1: 1/" + str(raceLength)
+	textLabelTwo.text = "P2: 1/" + str(raceLength)
+	textLabelOne.show()
+	textLabelTwo.show()
 
 
 func _on_enter_finish(body : KinematicBody2D) -> void:
 	if not body.backwardsLap and body.position.x < get_node("FinishLine").position.x:
 		body.lapCount += 1
+		update_lap_text(body)
 		
 		comeback()
 		
-		if body.lapCount > 2: # 18 allows music to play through at least once, use 2 or 3 for testing
+		if body.lapCount > raceLength: # 18 allows music to play through at least once, use 2 or 3 for testing
 			end_race(body)
 
 #	print(body.lapCount)
 #	print(body.position.x)
 #	print(body.backwardsLap)
+
+
+func update_lap_text(body : KinematicBody2D) -> void:
+	var textLabel
+	if not body.playerTwo:
+		textLabel = get_node("HUD/P1Laps")
+		textLabel.text = "P1: "
+	else:
+		textLabel = get_node("HUD/P2Laps")
+		textLabel.text = "P2: "
+	textLabel.text += str(body.lapCount) + "/" + str(raceLength)
 
 
 func _on_exit_finish(body):
@@ -80,11 +104,11 @@ func comeback() -> void:
 #	print("\nPlayer 1: " + str(car1.lapCount))
 #	print("Player 2: " + str(car2.lapCount))
 	
-	if car1.lapCount > car2.lapCount and car2.speed <= 600:
+	if car1.lapCount > car2.lapCount and car2.speed < 600:
 		car2.speed *= 1.5
 #		print("p1's speed is " + str(car1.speed))
 #		print("increased p2's speed to " + str(car2.speed))
-	elif car2.lapCount > car1.lapCount and car1.speed <= 600:
+	elif car2.lapCount > car1.lapCount and car1.speed < 600:
 		car1.speed *= 1.5
 #		print("increased p1's speed to " + str(car1.speed))
 #		print("p2's speed is " + str(car1.speed))

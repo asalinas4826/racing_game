@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://track_one.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Race.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/endButton/Play Again Hover.png" type="Texture" id=9]
 [ext_resource path="res://assets/endButton/Play Again Pressed.png" type="Texture" id=10]
 [ext_resource path="res://Sound/WinMusic.wav" type="AudioStream" id=11]
+[ext_resource path="res://Fonts/PublicPixel-z84yD.ttf" type="DynamicFontData" id=12]
 
 [sub_resource type="InputEventAction" id=1]
 action = "ui_accept"
@@ -24,6 +25,12 @@ action = "ui_accept"
 [sub_resource type="ShortCut" id=5]
 shortcut = SubResource( 4 )
 
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 12 )
+
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 12, 53.5 )
 
@@ -34,7 +41,7 @@ script = ExtResource( 2 )
 
 [node name="RaceMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
-volume_db = 3.0
+volume_db = 10.0
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 1.875
@@ -75,6 +82,25 @@ texture_normal = ExtResource( 8 )
 texture_pressed = ExtResource( 10 )
 texture_hover = ExtResource( 9 )
 
+[node name="P1Laps" type="RichTextLabel" parent="HUD"]
+margin_left = 830.0
+margin_top = 20.0
+margin_right = 1010.0
+margin_bottom = 42.0
+custom_colors/default_color = Color( 0.776471, 0.792157, 0.588235, 1 )
+custom_fonts/normal_font = SubResource( 6 )
+text = "P1: 1/18"
+
+[node name="P2Laps" type="RichTextLabel" parent="HUD"]
+margin_left = 830.0
+margin_top = 60.0
+margin_right = 1010.0
+margin_bottom = 100.0
+custom_colors/default_color = Color( 0.776471, 0.792157, 0.588235, 1 )
+custom_colors/selection_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 7 )
+text = "P2: 1/18"
+
 [node name="FinishLine" type="Area2D" parent="."]
 position = Vector2( 482, 513 )
 
@@ -83,7 +109,7 @@ shape = SubResource( 3 )
 
 [node name="WinMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 11 )
-volume_db = 3.0
+volume_db = 10.0
 
 [connection signal="timeout" from="StartTimer" to="." method="start_race"]
 [connection signal="pressed" from="HUD/StartButton" to="." method="prepare_race"]

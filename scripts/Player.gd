@@ -45,6 +45,9 @@ func bounce_player(player : KinematicBody2D) -> void:
 	var collision = player.move_and_collide(velocity)
 	if collision != null:
 		toBounceState(collision, player, velocity)
+	get_node("Bounce").stop()
+	get_node("Bounce").play()
+	
 
 func toBounceState(collision : KinematicCollision2D, player : KinematicBody2D, player_vel : Vector2) -> void: 
 	var collider_v = collision.get_collider_velocity().limit_length(player_vel.length())

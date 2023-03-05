@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Car.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sound/funny-spring-jump-140378.mp3" type="AudioStream" id=3]
 
 [node name="Player" type="Node"]
 script = ExtResource( 1 )
@@ -13,3 +14,7 @@ rotation = 1.5708
 [node name="Car2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 420, 538 )
 rotation = 1.5708
+
+[node name="Bounce" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.775

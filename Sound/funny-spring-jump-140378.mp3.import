@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/funny-spring-jump-140378.mp3-b704f36c82a76c0f5df999476dfca108.mp3str"
+
+[deps]
+
+source_file="res://Sound/funny-spring-jump-140378.mp3"
+dest_files=[ "res://.import/funny-spring-jump-140378.mp3-b704f36c82a76c0f5df999476dfca108.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
